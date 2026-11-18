@@ -33,8 +33,10 @@ services:
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./odoo.conf:/etc/odoo/odoo.conf:ro
+      - .:/opt/odoo
     # Startup lives here 
     command: ["python3", "odoo-bin", "-c", "/etc/odoo/odoo.conf"]
+    # command: ["python3", "odoo-bin", "-c", "/etc/odoo/odoo.conf", "--dev=reload,xml"] # use this if want server to reload on code changes[dependency: watchdog]
     restart: unless-stopped
 
 volumes:

@@ -1,0 +1,35 @@
+# Keep the build context small and avoid copying host junk into the image
+.git
+.github
+.instruction_doc
+.gitignore
+.weblate.json
+
+# Docs and packaging helpers not needed at runtime
+doc
+setup/win32
+setup/rpm
+*.md
+CONTRIBUTING.md
+COPYRIGHT
+LICENSE
+SECURITY.md
+MANIFEST.in
+ruff.toml
+
+# Python / editor noise
+**/__pycache__
+**/*.py[cod]
+**/*.egg-info
+.venv
+venv
+env
+
+# Local Docker / runtime artifacts
+.env
+odoo.conf
+docker-compose.override.yml
+
+# Filestore if ever created on the host
+odoo/filestore
+**/filestore

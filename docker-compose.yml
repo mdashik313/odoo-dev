@@ -1,0 +1,42 @@
+# Odoo 18.0 + PostgreSQL — local development 
+# Credentials match odoo.conf and .env.example
+
+services:
+  db:
+    image: postgres:16
+    container_name: odoo18-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-odoo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-odoo}
+      # Keep the default maintenance database; Odoo creates its own DBs
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-odoo} -d ${POSTGRES_DB:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+  odoo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: odoo18-app
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${ODOO_PORT:-8069}:8069"
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./odoo.conf:/etc/odoo/odoo.conf:ro
+    # Startup lives here 
+    command: ["python3", "odoo-bin", "-c", "/etc/odoo/odoo.conf"]
+    restart: unless-stopped
+
+volumes:
+  odoo-db-data:
+  odoo-web-data:

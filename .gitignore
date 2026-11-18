@@ -3,6 +3,8 @@ _build/
 
 # dotfiles
 .*
+!.dockerignore
+!.env.example 
 !.gitignore
 !.github
 !.mailmap

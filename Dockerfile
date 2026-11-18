@@ -55,7 +55,8 @@ WORKDIR /opt/odoo
 # Install Python dependencies first so dependency layers cache well
 COPY requirements.txt /opt/odoo/requirements.txt
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+    && pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir watchdog
 
 # Copy the Odoo 18.0 source tree into the image (ownership set to odoo during copy)
 COPY --chown=odoo:odoo . /opt/odoo

@@ -5,7 +5,7 @@
     "summary": "Manage equipment rental requests",
     "author": "Your Company",
     "license": "LGPL-3",
-    "depends": ["base"],
+    "depends": ["base", "product"],
     "data": [],
     "application": True,
     "installable": True,

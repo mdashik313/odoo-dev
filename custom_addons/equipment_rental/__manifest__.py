@@ -6,7 +6,10 @@
     "author": "Your Company",
     "license": "LGPL-3",
     "depends": ["base", "product"],
-    "data": [],
+    "data": [
+        "security/equipment_rental_security.xml",
+        "security/ir.model.access.csv",
+    ],
     "application": True,
     "installable": True,
 }
